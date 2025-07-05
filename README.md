@@ -36,3 +36,21 @@ Este es un sistema de gestión de biblioteca creado en JavaScript como proyecto 
 1. Instalá las dependencias (solo la primera vez):
 **Ashley Terán**  
 Desarrolladora en formación — Ada 
+---
+
+### 💌 Mensaje Final
+
+Hola profe,
+
+Quiero agradecerle profundamente por la oportunidad, la comprensión y la confianza que me ha brindado a pesar de las dificultades de salud que he atravesado. Este proyecto representa para mí no solo una entrega académica, sino también una pequeña victoria personal.
+
+Aquí le comparto mi proyecto final individual de JavaScript. Lo desarrollé con Node.js, se ejecuta desde la terminal y está publicado en GitHub como se solicitó.
+
+🔗 Repositorio en GitHub:  
+[https://github.com/ashleyteran/ADAASHLEY](https://github.com/ashleyteran/ADAASHLEY)
+
+Para ejecutarlo desde la terminal:Gracias por su paciencia, por confiar en mí y por permitirme seguir adelante con este proceso. Estoy muy agradecida por todo.
+
+Con aprecio,  
+*Ashley Terán*  
+Desarrolladora en formación — Ada ❤
