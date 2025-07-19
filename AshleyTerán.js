@@ -1,74 +1,70 @@
-// Activar prompt-sync para entrada por consola
+// Proyecto Final — Ashley Terán
+// Desarrolladora en formación — ADA ❤
+// -----------------------------------------
+
+// Requiere prompt-sync para entradas por consola
 const prompt = require("prompt-sync")({ sigint: true });
 
-// ---------- Punto 1: Estructura de Datos ----------
+// ---------- Punto 1: Estructura de datos ----------
 
-// 10 libros en el sistema
+// Lista de libros
 let libros = [
-  { id: 1, titulo: "Aprende JavaScript", autor: "Marcos Núñez", año: 2022, genero: "Programación", disponible: true },
-  { id: 2, titulo: "Diseño Web con HTML y CSS", autor: "Laura Gómez", año: 2021, genero: "Diseño", disponible: true },
-  { id: 3, titulo: "UX Writing", autor: "Andrés Pérez", año: 2023, genero: "UX", disponible: true },
-  { id: 4, titulo: "Inteligencia Artificial 101", autor: "Daniela Mora", año: 2025, genero: "Tecnología", disponible: true },
-  { id: 5, titulo: "Pensamiento Computacional", autor: "Carlos Salazar", año: 2020, genero: "Educación", disponible: true },
-  { id: 6, titulo: "Lógica de Programación", autor: "Ana Rivera", año: 2019, genero: "Formación", disponible: true },
-  { id: 7, titulo: "Programar es fácil", autor: "Juan Ramírez", año: 2024, genero: "Desarrollo", disponible: true },
-  { id: 8, titulo: "Diseño centrado en el usuario", autor: "Beatriz Vega", año: 2023, genero: "UX", disponible: true },
-  { id: 9, titulo: "Aprendiendo Python", autor: "Lucía Araya", año: 2022, genero: "Programación", disponible: true },
-  { id: 10, titulo: "Data Science desde cero", autor: "Rafael Brenes", año: 2021, genero: "Ciencia de datos", disponible: true }
+  { id: 1, titulo: "Aprende JavaScript", autor: "Mark Myers", disponible: true },
+  { id: 2, titulo: "Clean Code", autor: "Robert C. Martin", disponible: true },
+  { id: 3, titulo: "JavaScript: The Good Parts", autor: "Douglas Crockford", disponible: true },
+  { id: 4, titulo: "You Don’t Know JS", autor: "Kyle Simpson", disponible: true },
+  { id: 5, titulo: "Eloquent JavaScript", autor: "Marijn Haverbeke", disponible: true },
+  { id: 6, titulo: "Introduction to Algorithms", autor: "Thomas Cormen", disponible: true },
+  { id: 7, titulo: "Atomic Habits", autor: "James Clear", disponible: true },
+  { id: 8, titulo: "Deep Work", autor: "Cal Newport", disponible: true },
+  { id: 9, titulo: "Soft Skills", autor: "John Sonmez", disponible: true },
+  { id: 10, titulo: "Design Patterns", autor: "Erich Gamma", disponible: true },
 ];
 
-// 5 usuarios en el sistema
+// Lista de usuarios
 let usuarios = [
-  { id: 1, nombre: "Lucía Rodríguez", email: "lucia@mail.com", librosPrestados: [] },
-  { id: 2, nombre: "Mateo Álvarez", email: "mateo@mail.com", librosPrestados: [] },
-  { id: 3, nombre: "Daniela Pineda", email: "daniela@mail.com", librosPrestados: [] },
-  { id: 4, nombre: "Esteban Sánchez", email: "esteban@mail.com", librosPrestados: [] },
-  { id: 5, nombre: "Camila Vega", email: "camila@mail.com", librosPrestados: [] }
+  { id: 1, nombre: "Lucía Fernández", librosPrestados: [] },
+  { id: 2, nombre: "Carlos Méndez", librosPrestados: [] },
+  { id: 3, nombre: "Sofía Ramírez", librosPrestados: [] },
+  { id: 4, nombre: "Alejandro Soto", librosPrestados: [] },
+  { id: 5, nombre: "Daniela Solís", librosPrestados: [] },
 ];
 // ---------- Punto 2: Funciones de gestión de libros ----------
 
-// Mostrar todos los libros disponibles
-function mostrarLibros() {
-  console.log("\n📚 Lista de Libros:");
-  libros.forEach((libro) => {
-    console.log(${libro.id}. ${libro.titulo} - ${libro.autor} (${libro.año}) [${libro.disponible ? "Disponible" : "Prestado"}]);
-  });
-}
-
-// Agregar un nuevo libro
+// Agregar nuevo libro
 function agregarLibro() {
-  const titulo = prompt("Título del libro: ");
-  const autor = prompt("Autor del libro: ");
-  const año = parseInt(prompt("Año de publicación: "));
-  const genero = prompt("Género: ");
+  const titulo = prompt("📕 Título del libro: ");
+  const autor = prompt("✍ Autor del libro: ");
   const nuevoLibro = {
     id: libros.length + 1,
     titulo,
     autor,
-    año,
-    genero,
-    disponible: true
+    disponible: true,
   };
   libros.push(nuevoLibro);
-  console.log("✅ Libro agregado con éxito.");
+  console.log("✅ Libro agregado correctamente.");
 }
 
-// Buscar un libro por título
+// Buscar libro por título
 function buscarLibro() {
-  const buscar = prompt("Ingrese el título del libro a buscar: ").toLowerCase();
-  const resultado = libros.find((libro) => libro.titulo.toLowerCase().includes(buscar));
-  if (resultado) {
-    console.log("🔍 Libro encontrado:");
-    console.log(${resultado.id}. ${resultado.titulo} - ${resultado.autor} (${resultado.año}));
+  const titulo = prompt("🔎 Ingrese el título a buscar: ").toLowerCase();
+  const encontrados = libros.filter((l) =>
+    l.titulo.toLowerCase().includes(titulo)
+  );
+  if (encontrados.length > 0) {
+    console.log("📚 Libros encontrados:");
+    encontrados.forEach((l) => {
+      console.log(`- ${l.titulo} (${l.autor}) - ${l.disponible ? "Disponible" : "Prestado"}`);
+    });
   } else {
-    console.log("❌ Libro no encontrado.");
+    console.log("❌ No se encontraron libros.");
   }
 }
 
-// Ordenar libros por título (Bubble Sort)
+// Ordenar libros alfabéticamente (Bubble Sort)
 function ordenarLibros() {
   for (let i = 0; i < libros.length - 1; i++) {
-    for (let j = 0; j < libros.length - i - 1; j++) {
+    for (let j = 0; j < libros.length - 1 - i; j++) {
       if (libros[j].titulo > libros[j + 1].titulo) {
         let temp = libros[j];
         libros[j] = libros[j + 1];
@@ -76,223 +72,272 @@ function ordenarLibros() {
       }
     }
   }
-  console.log("✅ Libros ordenados alfabéticamente por título.");
+  console.log("📚 Libros ordenados alfabéticamente.");
 }
 
-// Borrar un libro por ID
+// Borrar libro por título
 function borrarLibro() {
-  const id = parseInt(prompt("Ingrese el ID del libro a borrar: "));
-  const index = libros.findIndex((libro) => libro.id === id);
-  if (index !== -1) {
-    libros.splice(index, 1);
-    console.log("🗑 Libro eliminado con éxito.");
+  const titulo = prompt("🗑 Ingrese el título del libro a borrar: ").toLowerCase();
+  const indice = libros.findIndex((l) => l.titulo.toLowerCase() === titulo);
+  if (indice !== -1) {
+    libros.splice(indice, 1);
+    console.log("✅ Libro eliminado correctamente.");
+  } else {
+    console.log("❌ Libro no encontrado.");
+  }
+}
+// ---------- Punto 2: Funciones de gestión de libros ----------
+
+// Agregar nuevo libro
+function agregarLibro() {
+  const titulo = prompt("📕 Título del libro: ");
+  const autor = prompt("✍ Autor del libro: ");
+  const nuevoLibro = {
+    id: libros.length + 1,
+    titulo,
+    autor,
+    disponible: true,
+  };
+  libros.push(nuevoLibro);
+  console.log("✅ Libro agregado correctamente.");
+}
+
+// Buscar libro por título
+function buscarLibro() {
+  const titulo = prompt("🔎 Ingrese el título a buscar: ").toLowerCase();
+  const encontrados = libros.filter((l) =>
+    l.titulo.toLowerCase().includes(titulo)
+  );
+  if (encontrados.length > 0) {
+    console.log("📚 Libros encontrados:");
+    encontrados.forEach((l) =>
+      console.log(`- ${l.titulo} (${l.autor}) - ${l.disponible ? "Disponible" : "Prestado"}`)
+    );
+  } else {
+    console.log("❌ No se encontraron libros.");
+  }
+}
+
+// Ordenar libros alfabéticamente (Bubble Sort)
+function ordenarLibros() {
+  for (let i = 0; i < libros.length - 1; i++) {
+    for (let j = 0; j < libros.length - 1 - i; j++) {
+      if (libros[j].titulo > libros[j + 1].titulo) {
+        let temp = libros[j];
+        libros[j] = libros[j + 1];
+        libros[j + 1] = temp;
+      }
+    }
+  }
+  console.log("📚 Libros ordenados alfabéticamente.");
+}
+
+// Borrar libro por título
+function borrarLibro() {
+  const titulo = prompt("🗑 Ingrese el título del libro a borrar: ").toLowerCase();
+  const indice = libros.findIndex((l) => l.titulo.toLowerCase() === titulo);
+  if (indice !== -1) {
+    libros.splice(indice, 1);
+    console.log("✅ Libro eliminado correctamente.");
   } else {
     console.log("❌ Libro no encontrado.");
   }
 }
 // ---------- Punto 3: Funciones de gestión de usuarios ----------
 
-// Mostrar todos los usuarios
-function mostrarUsuarios() {
-  console.log("\n👥 Lista de Usuarios:");
-  usuarios.forEach((usuario) => {
-    console.log(${usuario.id}. ${usuario.nombre} - ${usuario.email});
-  });
-}
-
-// Registrar un nuevo usuario
+// Registrar nuevo usuario
 function registrarUsuario() {
-  const nombre = prompt("Nombre del usuario: ");
-  const email = prompt("Correo electrónico: ");
+  const nombre = prompt("🧑 Nombre del nuevo usuario: ");
   const nuevoUsuario = {
     id: usuarios.length + 1,
     nombre,
-    email,
     librosPrestados: []
   };
   usuarios.push(nuevoUsuario);
-  console.log("✅ Usuario registrado con éxito.");
+  console.log("✅ Usuario registrado correctamente.");
+}
+
+// Mostrar todos los usuarios
+function mostrarTodosLosUsuarios() {
+  console.log("👥 Lista de usuarios:");
+  usuarios.forEach((u) => {
+    console.log(- ${u.nombre} (ID: ${u.id}) — Libros prestados: ${u.librosPrestados.length});
+  });
 }
 
 // Buscar usuario por nombre
 function buscarUsuario() {
-  const buscar = prompt("Ingrese el nombre del usuario a buscar: ").toLowerCase();
-  const resultado = usuarios.find((usuario) => usuario.nombre.toLowerCase().includes(buscar));
-  if (resultado) {
-    console.log("🔍 Usuario encontrado:");
-    console.log(${resultado.id}. ${resultado.nombre} - ${resultado.email});
-  } else {
-    console.log("❌ Usuario no encontrado.");
-  }
-}
-
-// Borrar usuario por ID
-function borrarUsuario() {
-  const id = parseInt(prompt("Ingrese el ID del usuario a eliminar: "));
-  const index = usuarios.findIndex((usuario) => usuario.id === id);
-  if (index !== -1) {
-    usuarios.splice(index, 1);
-    console.log("🗑 Usuario eliminado con éxito.");
-  } else {
-    console.log("❌ Usuario no encontrado.");
-  }
-}// ---------- Punto 4: Sistema de préstamos ----------
-
-// Prestar un libro a un usuario
-function prestarLibro() {
-  const idUsuario = parseInt(prompt("ID del usuario que desea un libro: "));
-  const usuario = usuarios.find((u) => u.id === idUsuario);
-  if (!usuario) {
-    console.log("❌ Usuario no encontrado.");
-    return;
-  }
-
-  const idLibro = parseInt(prompt("ID del libro a prestar: "));
-  const libro = libros.find((l) => l.id === idLibro);
-  if (!libro) {
-    console.log("❌ Libro no encontrado.");
-    return;
-  }
-
-  if (!libro.disponible) {
-    console.log("❌ Libro no disponible.");
-    return;
-  }
-
-  libro.disponible = false;
-  usuario.librosPrestados.push(libro);
-  console.log(📚 Libro "${libro.titulo}" prestado a ${usuario.nombre}.);
-}
-
-// Devolver un libro
-function devolverLibro() {
-  const idUsuario = parseInt(prompt("ID del usuario que devuelve un libro: "));
-  const usuario = usuarios.find((u) => u.id === idUsuario);
-  if (!usuario) {
-    console.log("❌ Usuario no encontrado.");
-    return;
-  }
-
-  const idLibro = parseInt(prompt("ID del libro a devolver: "));
-  const libroIndex = usuario.librosPrestados.findIndex((l) => l.id === idLibro);
-  if (libroIndex === -1) {
-    console.log("❌ El usuario no tiene ese libro prestado.");
-    return;
-  }
-
-  // Liberar libro
-  const libro = usuario.librosPrestados[libroIndex];
-  libro.disponible = true;
-  usuario.librosPrestados.splice(libroIndex, 1);
-  console.log(✅ Libro "${libro.titulo}" devuelto por ${usuario.nombre}.);
-}// ---------- Punto 5: Reportes y métodos avanzados ----------
-
-// Reporte de libros (títulos disponibles y total de libros)
-function generarReporteLibros() {
-  const disponibles = libros.filter((l) => l.disponible);
-  const titulos = disponibles.map((l) => l.titulo);
-  const total = libros.length;
-
-  console.log("\n📄 Reporte de Libros");
-  console.log("📚 Libros disponibles:");
-  titulos.forEach((t) => console.log("- " + t));
-  console.log(📦 Total de libros en el sistema: ${total});
-}
-
-// ---------- Punto 6: Identificación avanzada ----------
-
-// Mostrar libros que contienen palabras específicas en el título
-function librosConPalabrasEnTitulo() {
-  const palabra = prompt("Ingrese una palabra clave a buscar en los títulos: ").toLowerCase();
-  const encontrados = libros.filter((l) => l.titulo.toLowerCase().includes(palabra));
-
+  const nombre = prompt("🔍 Ingrese el nombre del usuario: ").toLowerCase();
+  const encontrados = usuarios.filter((u) =>
+    u.nombre.toLowerCase().includes(nombre)
+  );
   if (encontrados.length > 0) {
-    console.log(🔎 Libros que contienen "${palabra}":);
-    encontrados.forEach((l) => console.log(- ${l.titulo} (${l.autor})));
+    console.log("👤 Usuarios encontrados:");
+    encontrados.forEach((u) => {
+      console.log(- ${u.nombre} (ID: ${u.id}) — Libros prestados: ${u.librosPrestados.length});
+    });
   } else {
-    console.log("❌ No se encontraron libros con esa palabra.");
+    console.log("❌ No se encontraron usuarios.");
   }
 }
 
-// ---------- Punto 7: Estadísticas ----------
+// Borrar usuario por nombre
+function borrarUsuario() {
+  const nombre = prompt("🗑 Ingrese el nombre del usuario a borrar: ").toLowerCase();
+  const indice = usuarios.findIndex((u) => u.nombre.toLowerCase() === nombre);
+  if (indice !== -1) {
+    usuarios.splice(indice, 1);
+    console.log("✅ Usuario eliminado correctamente.");
+  } else {
+    console.log("❌ Usuario no encontrado.");
+  }
+}
+// ---------- Punto 3: Funciones de gestión de usuarios ----------
 
-// Calcular estadísticas básicas
+// Registrar nuevo usuario
+function registrarUsuario() {
+  const nombre = prompt("🧑 Nombre del nuevo usuario: ");
+  const nuevoUsuario = {
+    id: usuarios.length + 1,
+    nombre,
+    librosPrestados: []
+  };
+  usuarios.push(nuevoUsuario);
+  console.log("✅ Usuario registrado correctamente.");
+}
+
+// Mostrar todos los usuarios
+function mostrarTodosLosUsuarios() {
+  console.log("👥 Lista de usuarios:");
+  usuarios.forEach((u) => {
+    console.log(- ${u.nombre} (ID: ${u.id}) — Libros prestados: ${u.librosPrestados.length});
+  });
+}
+
+// Buscar usuario por nombre
+function buscarUsuario() {
+  const nombre = prompt("🔍 Ingrese el nombre del usuario: ").toLowerCase();
+  const encontrados = usuarios.filter((u) =>
+    u.nombre.toLowerCase().includes(nombre)
+  );
+  if (encontrados.length > 0) {
+    console.log("👤 Usuarios encontrados:");
+    encontrados.forEach((u) => {
+      console.log(- ${u.nombre} (ID: ${u.id}) — Libros prestados: ${u.librosPrestados.length});
+    });
+  } else {
+    console.log("❌ No se encontraron usuarios.");
+  }
+}
+
+// Borrar usuario por nombre
+function borrarUsuario() {
+  const nombre = prompt("🗑 Ingrese el nombre del usuario a borrar: ").toLowerCase();
+  const indice = usuarios.findIndex((u) => u.nombre.toLowerCase() === nombre);
+  if (indice !== -1) {
+    usuarios.splice(indice, 1);
+    console.log("✅ Usuario eliminado correctamente.");
+  } else {
+    console.log("❌ Usuario no encontrado.");
+  }
+}
+// ---------- Punto 5: Reporte con métodos avanzados ----------
+
+function generarReporteLibros() {
+  console.log("📄 Reporte de Libros:");
+
+  libros.forEach((libro) => {
+    const prestadoA = usuarios.find((u) => u.librosPrestados.includes(libro.id));
+    const estado = libro.disponible ? "Disponible ✅" : Prestado a ${prestadoA.nombre} ❌;
+    console.log(📘 ${libro.titulo} - ${libro.autor} → ${estado});
+  });
+}
+// ---------- Punto 5: Reporte con métodos avanzados ----------
+
+function generarReporteLibros() {
+  console.log("📄 Reporte de Libros:");
+
+  libros.forEach((libro) => {
+    const prestadoA = usuarios.find((u) => u.librosPrestados.includes(libro.id));
+    const estado = libro.disponible ? "Disponible ✅" : Prestado a ${prestadoA.nombre} ❌;
+    console.log(📘 ${libro.titulo} - ${libro.autor} → ${estado});
+  });
+}
+// ---------- Punto 7: Cálculos estadísticos ----------
+
 function calcularEstadisticas() {
   const totalLibros = libros.length;
-  const disponibles = libros.filter((l) => l.disponible).length;
-  const prestados = totalLibros - disponibles;
-  const promedioAño = Math.round(libros.reduce((sum, l) => sum + l.año, 0) / totalLibros);
+  const librosDisponibles = libros.filter((l) => l.disponible).length;
+  const librosPrestados = totalLibros - librosDisponibles;
 
-  console.log("\n📊 Estadísticas del Sistema:");
+  let totalPrestamos = 0;
+  usuarios.forEach((u) => {
+    totalPrestamos += u.librosPrestados.length;
+  });
+
+  console.log("📊 Estadísticas:");
   console.log(📚 Total de libros: ${totalLibros});
-  console.log(✅ Libros disponibles: ${disponibles});
-  console.log(📕 Libros prestados: ${prestados});
-  console.log(📅 Año promedio de publicación: ${promedioAño});
-}// ---------- Punto 8: Normalización de cadenas ----------
-
-// Pasar títulos de libros y nombres de usuario a minúsculas
-function normalizarDatos() {
-  libros = libros.map((libro) => ({
-    ...libro,
-    titulo: libro.titulo.toLowerCase()
-  }));
-  usuarios = usuarios.map((usuario) => ({
-    ...usuario,
-    nombre: usuario.nombre.toLowerCase()
-  }));
-  console.log("🔤 Datos normalizados correctamente.");
+  console.log(✅ Libros disponibles: ${librosDisponibles});
+  console.log(📕 Libros prestados: ${librosPrestados});
+  console.log(👥 Total de préstamos realizados: ${totalPrestamos});
 }
+// ---------- Punto 8: Manejo de cadenas ----------
 
-// ---------- Punto 9 y 10: Menú principal y comentarios ----------
+function normalizarDatos() {
+  libros.forEach((l) => {
+    l.titulo = l.titulo.trim().toLowerCase();
+    l.autor = l.autor.trim().toLowerCase();
+  });
+
+  usuarios.forEach((u) => {
+    u.nombre = u.nombre.trim().toLowerCase();
+  });
+
+  console.log("🧼 Datos normalizados correctamente.");
+}
+// ---------- Punto 9: Interfaz de usuario por consola ----------
 
 function menu() {
-  let opcion;
+  let opcion = "";
   do {
-    console.log("\n📚 Bienvenida al Sistema de Biblioteca — Ashley Terán");
-    console.log("1. Mostrar libros");
-    console.log("2. Agregar libro");
-    console.log("3. Buscar libro");
-    console.log("4. Ordenar libros");
-    console.log("5. Borrar libro");
-    console.log("6. Mostrar usuarios");
-    console.log("7. Registrar usuario");
-    console.log("8. Buscar usuario");
-    console.log("9. Borrar usuario");
-    console.log("10. Prestar libro");
-    console.log("11. Devolver libro");
-    console.log("12. Reporte de libros");
-    console.log("13. Libros con palabra clave");
-    console.log("14. Estadísticas del sistema");
-    console.log("15. Normalizar datos");
-    console.log("0. Salir");
+    console.log("\n📚 MENÚ PRINCIPAL 📚");
+    console.log("1️⃣ Agregar libro");
+    console.log("2️⃣ Buscar libro");
+    console.log("3️⃣ Ordenar libros");
+    console.log("4️⃣ Borrar libro");
+    console.log("5️⃣ Registrar usuario");
+    console.log("6️⃣ Mostrar todos los usuarios");
+    console.log("7️⃣ Buscar usuario");
+    console.log("8️⃣ Borrar usuario");
+    console.log("9️⃣ Prestar libro");
+    console.log("🔟 Devolver libro");
+    console.log("🔢 Reporte de libros");
+    console.log("🔍 Libros con palabra clave");
+    console.log("📊 Calcular estadísticas");
+    console.log("🔁 Normalizar datos");
+    console.log("0️⃣ Salir");
     opcion = prompt("Seleccione una opción: ");
 
     switch (opcion) {
-      case "1": mostrarLibros(); break;
-      case "2": agregarLibro(); break;
-      case "3": buscarLibro(); break;
-      case "4": ordenarLibros(); break;
-      case "5": borrarLibro(); break;
-      case "6": mostrarUsuarios(); break;
-      case "7": registrarUsuario(); break;
-      case "8": buscarUsuario(); break;
-      case "9": borrarUsuario(); break;
-      case "10": prestarLibro(); break;
-      case "11": devolverLibro(); break;
-      case "12": generarReporteLibros(); break;
-      case "13": librosConPalabrasEnTitulo(); break;
-      case "14": calcularEstadisticas(); break;
-      case "15": normalizarDatos(); break;
-      case "0": 
-        console.log("\n🙏 Gracias por revisar mi proyecto, profe.");
-        console.log("💚 Agradezco de corazón su comprensión durante mi recuperación.");
-        console.log("👩🏽‍💻 Proyecto realizado por Ashley Terán — Desarrolladora en formación ADA.");
-        break;
-      default: console.log("❗ Opción inválida. Intente de nuevo.");
+      case "1": agregarLibro(); break;
+      case "2": buscarLibro(); break;
+      case "3": ordenarLibros(); break;
+      case "4": borrarLibro(); break;
+      case "5": registrarUsuario(); break;
+      case "6": mostrarTodosLosUsuarios(); break;
+      case "7": buscarUsuario(); break;
+      case "8": borrarUsuario(); break;
+      case "9": prestarLibro(); break;
+      case "10": devolverLibro(); break;
+      case "11": generarReporteLibros(); break;
+      case "12": librosConPalabrasEnTitulo(); break;
+      case "13": calcularEstadisticas(); break;
+      case "14": normalizarDatos(); break;
+      case "0": console.log("👋 ¡Gracias por usar el sistema!"); break;
+      default: console.log("❌ Opción inválida."); break;
     }
   } while (opcion !== "0");
 }
 
-// Ejecutar menú
-menu();
-      
+// Ejecutar el menú
+menu(); 
